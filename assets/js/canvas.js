@@ -49,7 +49,8 @@
     var c = s.getContext('2d');
     var g = c.createRadialGradient(32, 32, 0, 32, 32, 32);
     g.addColorStop(0, color);
-    g.addColorStop(0.3, color.replace('1)', '0.5)'));
+    g.addColorStop(0.22, color);
+    g.addColorStop(0.5, color.replace('1)', '0.5)'));
     g.addColorStop(1, color.replace('1)', '0)'));
     c.fillStyle = g; c.fillRect(0, 0, 64, 64);
     return s;
@@ -60,7 +61,7 @@
   var candleS = sprite('rgba(245,166,35,1)');
 
   // ---------- Particles ----------
-  var N = isMobile ? 280 : 560;
+  var N = isMobile ? 340 : 820;
   var P = [];
   (function () {
     for (var i = 0; i < N; i++) {
@@ -449,6 +450,11 @@
         p.dur = rand(1400, 2400);
         p.ty0 = rand(0.2, 0.8);
         p.baseAlpha = rand(0.5, 1); p.sizeMul = rand(0.32, 0.58); p.fast = true;
+      } else if (p.seed < 0.96) {
+        p.mode = 'bar';
+        p.hx = bx + rand(-2.5, 2.5);
+        p.hy = H * rand(0.10, 0.90);
+        p.baseAlpha = rand(0.4, 0.95); p.sizeMul = rand(0.3, 0.6); p.fast = false;
       } else {
         p.mode = 'dust';
         p.hx = W * rand(0.02, 0.98); p.hy = H * rand(0.04, 0.96);
@@ -944,6 +950,10 @@
           p.tx = p.hx + Math.sin(t * 0.0005 + p.phase) * 1.6;
           p.ty = p.hy + Math.cos(t * 0.0004 + p.phase) * 1.4;
           p.alpha = p.baseAlpha * (0.55 + 0.45 * Math.sin(t * 0.0011 + p.phase * 0.5));
+        } else if (p.mode === 'bar') {
+          p.tx = p.hx + Math.sin(t * 0.0008 * p.speed + p.phase) * 1.5;
+          p.ty = p.hy + Math.sin(t * 0.0004 * p.speed + p.phase) * H * 0.035;
+          p.alpha = p.baseAlpha * (0.55 + 0.45 * Math.sin(t * 0.0016 + p.phase));
         } else if (p.mode === 'pulse') {
           var cyc = fract(t / p.dur + p.off);
           var sx = bl.llm.x + bl.llm.r * 0.7;
@@ -1461,13 +1471,27 @@
 
     } else if (sceneName === 'limits') {
       drawLinksSet(1);
-      // the boundary the model cannot cross
-      ctx.strokeStyle = 'rgba(255,77,28,' + (0.34 * sf) + ')';
-      ctx.lineWidth = 1.2;
-      ctx.setLineDash([2, 9]);
+      // the boundary the model cannot cross: a breathing wall of ember light
+      var wob = 0.8 + 0.2 * Math.sin(t * 0.0011);
+      var gWall = ctx.createLinearGradient(board.bx - 48, 0, board.bx + 48, 0);
+      gWall.addColorStop(0, 'rgba(255,77,28,0)');
+      gWall.addColorStop(0.5, 'rgba(255,77,28,' + (0.16 * wob * sf) + ')');
+      gWall.addColorStop(1, 'rgba(255,77,28,0)');
+      ctx.fillStyle = gWall;
+      ctx.fillRect(board.bx - 48, H * 0.08, 96, H * 0.84);
+      ctx.strokeStyle = 'rgba(255,77,28,' + (0.7 * wob * sf) + ')';
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([14, 8]);
       ctx.beginPath();
-      ctx.moveTo(board.bx, H * 0.10);
-      ctx.lineTo(board.bx, H * 0.90);
+      ctx.moveTo(board.bx, H * 0.08);
+      ctx.lineTo(board.bx, H * 0.92);
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,138,102,' + (0.35 * sf) + ')';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 8]);
+      ctx.beginPath();
+      ctx.moveTo(board.bx - 8, H * 0.08); ctx.lineTo(board.bx - 8, H * 0.92);
+      ctx.moveTo(board.bx + 8, H * 0.08); ctx.lineTo(board.bx + 8, H * 0.92);
       ctx.stroke();
       ctx.setLineDash([]);
 
@@ -1688,8 +1712,8 @@
       var k = assembling ? p.k * 1.7 : (p.fast ? 0.42 : p.k);
       p.x += (p.tx - p.x) * k;
       p.y += (p.ty - p.y) * k;
-      var s = p.size * 5.4 * p.sizeMul;
-      ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha * 1.55));
+      var s = p.size * 6.2 * p.sizeMul;
+      ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha * 2.1));
       ctx.drawImage(p.sprite, p.x - s / 2, p.y - s / 2, s, s);
     });
     ctx.globalAlpha = 1;
@@ -1707,8 +1731,8 @@
     sceneFade = 1;
     drawStructure(tS);
     P.forEach(function (p) {
-      var s = p.size * 5.4 * p.sizeMul;
-      ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha * 1.55));
+      var s = p.size * 6.2 * p.sizeMul;
+      ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha * 2.1));
       ctx.drawImage(p.sprite, p.x - s / 2, p.y - s / 2, s, s);
     });
     ctx.globalAlpha = 1;
