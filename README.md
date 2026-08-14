@@ -5,17 +5,28 @@ Agentic RAG solution: Ragge the chat bot, from newborn to agent. Built on
 the MKLab Living Canvas (the particle system from mklab.se) with plain
 HTML, CSS and vanilla JavaScript. No build step, no dependencies.
 
-## Run it
+## Start it
 
 ```sh
 cd rag-visualization
 python3 -m http.server 8080
 ```
 
-Open http://localhost:8080 in a browser. A local server is required
-(the particle logo intro reads pixel data from the logo PNG, which
-browsers block on file://). Fonts load from Google Fonts, so the fancy
-typefaces need internet; the deck still works offline with fallbacks.
+Then open http://localhost:8080 in a browser and press F for
+fullscreen. Works the same on macOS and Linux; any modern browser
+(Chrome, Chromium, Firefox) and a stock python3 is all it needs. If
+python3 is missing, any static file server works, for example
+`npx serve .`.
+
+## Stop it
+
+Press Ctrl+C in the terminal running the server, and Esc or F to
+leave fullscreen in the browser.
+
+A local server is required (the particle logo intro reads pixel data
+from the logo PNG, which browsers block on file://). Fonts load from
+Google Fonts, so the fancy typefaces need internet; the deck still
+works offline with system-font fallbacks.
 
 ## Presenting
 
