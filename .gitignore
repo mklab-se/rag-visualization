@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Review artifacts from visual verification runs
+shots-review/
+.shots/
+.playwright-mcp/
+
+# Editors
+.vscode/
+.idea/

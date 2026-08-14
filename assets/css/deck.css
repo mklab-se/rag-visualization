@@ -1,0 +1,215 @@
+/* ============================================================
+   MKLab Agentic RAG deck
+   Full-page snap-scrolling presentation on top of the Living
+   Canvas. Ember brand: near-black ink, one accent, hairlines.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ink-950);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-light);
+  overflow-x: hidden;
+}
+body.mk-idle { cursor: none; }
+
+::selection { background: var(--accent-quiet); color: var(--ink-000); }
+
+/* ---------- Canvas behind everything ---------- */
+.mk-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
+}
+
+/* ---------- Slides ---------- */
+.deck { position: relative; z-index: 1; }
+
+.slide {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  align-items: center;
+  padding: 0 7vw;
+}
+
+.slide__copy {
+  max-width: 480px;
+  position: relative;
+}
+
+/* soft dark pillow so copy stays readable over the lights */
+.slide__copy::before {
+  content: "";
+  position: absolute;
+  inset: -12% -18%;
+  background: radial-gradient(ellipse at center,
+    rgba(5, 5, 5, 0.72) 0%,
+    rgba(5, 5, 5, 0.38) 55%,
+    rgba(5, 5, 5, 0) 78%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.slide--bottom { align-items: end; }
+.slide--bottom .slide__copy { margin-bottom: 11vh; max-width: 640px; }
+
+.slide--center { justify-items: center; text-align: center; }
+.slide--center .slide__copy { max-width: 720px; }
+
+/* ---------- Type ---------- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-5);
+}
+.eyebrow .num { color: var(--ember-500); }
+
+.slide h1 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-light);
+  font-size: clamp(56px, 8.5vw, 118px);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--ink-050);
+}
+
+.slide h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-light);
+  font-size: clamp(38px, 4.8vw, 60px);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  color: var(--ink-050);
+  margin-bottom: var(--space-6);
+}
+
+.lead {
+  font-size: clamp(15px, 1.35vw, 19px);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-200);
+  max-width: 52ch;
+}
+.lead strong {
+  color: var(--ink-100);
+  font-weight: var(--weight-medium);
+}
+.lead em {
+  font-style: normal;
+  color: var(--ember-300);
+}
+.slide--center .lead { margin-inline: auto; }
+
+.title-sub {
+  margin-top: var(--space-8);
+}
+
+/* ---------- Reveal on activation ---------- */
+.slide__copy > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--dur-slower) var(--ease-out),
+              transform var(--dur-slower) var(--ease-out);
+}
+.slide__copy > *:nth-child(2) { transition-delay: 120ms; }
+.slide__copy > *:nth-child(3) { transition-delay: 240ms; }
+.slide__copy > *:nth-child(4) { transition-delay: 360ms; }
+
+.slide.is-active .slide__copy > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* during the logo intro the title copy holds back */
+body.mk-intro-running .slide.is-active .slide__copy > * {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* ---------- Chrome: counter, progress, hint, logo ---------- */
+.deck-counter {
+  position: fixed;
+  right: var(--space-8);
+  bottom: var(--space-6);
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+.deck-counter .cur { color: var(--ink-100); }
+
+.deck-progress {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 1px;
+  width: 0%;
+  background: var(--ember-500);
+  box-shadow: 0 0 8px 0 var(--accent-glow);
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+.deck-logo {
+  position: fixed;
+  left: var(--space-8);
+  top: var(--space-6);
+  z-index: 2;
+  opacity: 0.8;
+}
+.deck-logo img { height: 30px; display: block; }
+
+.deck-hint {
+  position: absolute;
+  bottom: 7vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--text-3xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  animation: hint-breathe 3.2s var(--ease-in-out) infinite;
+}
+@keyframes hint-breathe {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .slide__copy > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .deck-hint { animation: none; }
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 720px) {
+  .slide { padding: 0 8vw; }
+  .slide__copy { max-width: 100%; }
+  .slide--bottom .slide__copy { margin-bottom: 14vh; }
+  .deck-logo { display: none; }
+}

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agentic RAG · MKLab</title>
+  <link rel="icon" href="assets/images/MKLab-0512-white.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;1,300&family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens/colors.css">
+  <link rel="stylesheet" href="assets/css/tokens/typography.css">
+  <link rel="stylesheet" href="assets/css/tokens/spacing.css">
+  <link rel="stylesheet" href="assets/css/tokens/effects.css">
+  <link rel="stylesheet" href="assets/css/tokens/motion.css">
+  <link rel="stylesheet" href="assets/css/deck.css">
+  <script src="assets/js/canvas.js" defer></script>
+  <script src="assets/js/deck.js" defer></script>
+</head>
+<body>
+
+  <canvas id="mk-canvas" class="mk-canvas" aria-hidden="true"
+    data-logo-src="assets/images/MKLab-0512-white.png"></canvas>
+
+  <main class="deck">
+
+    <section class="slide slide--center" data-scene="title" data-intro>
+      <div class="slide__copy">
+        <p class="eyebrow">MKLab · tech talk</p>
+        <h1>Agentic RAG</h1>
+        <p class="lead title-sub">The story of Rag, a chat bot who learns to look things up.</p>
+      </div>
+      <p class="deck-hint">Space to begin</p>
+    </section>
+
+    <section class="slide" data-scene="born">
+      <div class="slide__copy">
+        <p class="eyebrow"><span class="num">I</span> · Born knowing nothing</p>
+        <h2>Meet Rag.</h2>
+        <p class="lead">Rag is a newborn chat bot. On his own he cannot say a
+        word, so we give him a brain to talk to: <strong>a large language
+        model</strong>. Every question travels to the LLM, every answer
+        travels back.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-scene="memory">
+      <div class="slide__copy">
+        <p class="eyebrow"><span class="num">II</span> · Memory</p>
+        <h2>Rag forgets.</h2>
+        <p class="lead">The LLM has no memory between calls. Every question
+        arrives alone, as if the conversation never happened. So we add a
+        layer in between: <strong>an API with session memory</strong> that
+        stores the conversation and replays the whole session to the LLM,
+        every single time.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-scene="limits">
+      <div class="slide__copy">
+        <p class="eyebrow"><span class="num">III</span> · The wall</p>
+        <h2>Rag only knows the public internet.</h2>
+        <p class="lead">Your company's knowledge was never in the training
+        data. And you cannot send <strong>petabytes</strong> along with every
+        question. Something has to pick the right few pages, at the right
+        moment.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--bottom" data-scene="embed">
+      <div class="slide__copy">
+        <p class="eyebrow">Interlude · Embeddings</p>
+        <h2>Meaning becomes geometry.</h2>
+        <p class="lead">Ahead of time, every document is split into chunks,
+        and an embedding model turns each chunk into a vector:
+        <em>a direction in meaning space</em>. Not the exact words, but what
+        the chunk is about. Similar meaning, similar direction.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-scene="search">
+      <div class="slide__copy">
+        <p class="eyebrow">Interlude · Vector search</p>
+        <h2>The same trick, backwards.</h2>
+        <p class="lead">The question becomes a vector too, through the same
+        model. Finding relevant knowledge is now geometry: <strong>find the
+        vectors pointing the same way</strong> in a forest of meaning.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--bottom" data-scene="augment">
+      <div class="slide__copy">
+        <p class="eyebrow">Interlude · Augmentation</p>
+        <h2>A better prompt.</h2>
+        <p class="lead">The best matching chunks are stitched into the prompt
+        as context. The LLM now answers with knowledge it was never trained
+        on. That is <strong>retrieval augmented generation</strong>.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-scene="agentic">
+      <div class="slide__copy">
+        <p class="eyebrow"><span class="num">IV</span> · Agency</p>
+        <h2>Rag learns to look things up.</h2>
+        <p class="lead">The vector database becomes <strong>a tool</strong>.
+        The model decides when to search, what to search for, and whether one
+        search was enough. That decision loop is what makes it
+        <em>agentic</em>.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--bottom" data-scene="full">
+      <div class="slide__copy">
+        <p class="eyebrow"><span class="num">V</span> · The whole picture</p>
+        <h2>Agentic RAG, end to end.</h2>
+        <p class="lead">Question in. Memory recalled, a decision made,
+        knowledge retrieved, and the answer <strong>streamed back token by
+        token</strong>. Every piece is something we added. Nothing here is
+        magic.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--center" data-scene="outro">
+      <div class="slide__copy">
+        <p class="eyebrow">MKLab · EST. MMXXV</p>
+        <h2>Now, the real thing.</h2>
+        <p class="lead">That was the idea. Next: the same flow, built on
+        Microsoft Azure.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <p class="deck-counter"><span class="cur">01</span> · <span class="tot">10</span></p>
+  <div class="deck-progress"></div>
+  <a class="deck-logo" href="https://mklab.se" tabindex="-1">
+    <img src="assets/images/MKLab-0512-white.png" alt="MKLab">
+  </a>
+
+</body>
+</html>
