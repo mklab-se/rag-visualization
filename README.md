@@ -1,7 +1,7 @@
 # Agentic RAG · MKLab presentation
 
 A full-page, particle-animated presentation that tells the story of an
-Agentic RAG solution: Rag the chat bot, from newborn to agent. Built on
+Agentic RAG solution: Ragge the chat bot, from newborn to agent. Built on
 the MKLab Living Canvas (the particle system from mklab.se) with plain
 HTML, CSS and vanilla JavaScript. No build step, no dependencies.
 
@@ -28,8 +28,8 @@ typefaces need internet; the deck still works offline with fallbacks.
 ## Slides
 
 1. Title (particle logo intro plays on load)
-2. Born: Rag gets an LLM brain
-3. Memory: the session layer between Rag and the LLM
+2. Born: Ragge gets an LLM brain
+3. Memory: the session layer between Ragge and the LLM
 4. The wall: private data the LLM cannot reach
 5. Embeddings: document to chunks to vectors in meaning space
 6. Vector search: the question finds its nearest neighbours
