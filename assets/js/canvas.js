@@ -320,7 +320,7 @@
       rag: rag, llm: llm,
       pth: makePath(rag.x + rag.r * 1.4, rag.y - rag.r * 0.4, llm.x - llm.r * 0.9, llm.y + llm.r * 0.4, 0.16),
       labels: [
-        { x: rag.x, y: rag.y + rag.r * 2.4, text: 'RAGGE', after: 600 },
+        { x: rag.x, y: rag.y + rag.r * 2.4, text: 'NORM', after: 600 },
         { x: llm.x, y: llm.y + llm.r * 1.35, text: 'LLM · THE BRAIN', after: 2400 }
       ]
     };
@@ -367,7 +367,7 @@
         makePath(api.x + api.w * 0.8, api.y + api.h * 0.2, llm.x - llm.r * 0.8, llm.y - llm.r * 0.3, 0.12)
       ],
       labels: [
-        { x: rag.x, y: rag.y + rag.r * 2.5, text: 'RAGGE' },
+        { x: rag.x, y: rag.y + rag.r * 2.5, text: 'NORM' },
         { x: api.x, y: api.y + api.h * 1.05, text: 'API · SESSION MEMORY' },
         { x: llm.x, y: llm.y + llm.r * 1.4, text: 'LLM' }
       ]
@@ -722,7 +722,7 @@
       res: makePath(vdb.x - vdb.w * 0.8, vdb.y - vdb.h * 0.3, llm.x + llm.r * 0.4, llm.y + llm.r * 0.75, -0.18),
       labels: [
         { x: user.x, y: y + 42, text: 'USER' },
-        { x: rag.x, y: y + rag.r * 2.6, text: 'RAGGE' },
+        { x: rag.x, y: y + rag.r * 2.6, text: 'NORM' },
         { x: api.x, y: api.y + api.h * 0.85 + 16, text: 'API' },
         { x: sess.x, y: sess.y - sess.h * 0.85, text: 'SESSION MEMORY' },
         { x: llm.x, y: y - llm.r * 1.35, text: 'LLM' },
